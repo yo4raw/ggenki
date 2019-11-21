@@ -5,6 +5,8 @@ defmodule GgenkiWeb.BotController do
     %{"message" => message } = List.first(events)
     %{"source" => source } = List.first(events)
     events = List.first(events)
+
+    IO.inspect events
     endpoint_uri = "https://api.line.me/v2/bot/message/reply"
 
     json_data = %{
@@ -24,7 +26,7 @@ defmodule GgenkiWeb.BotController do
 
     case HTTPoison.post(endpoint_uri, json_data, headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.inspect body
+        IO.puts body
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         IO.puts "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
