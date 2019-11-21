@@ -17,6 +17,7 @@ defmodule Ggenki.MixProject do
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.o
+  def application do
     [
       mod: {Ggenki.Application, []},
       extra_applications: [:logger, :runtime_tools]
@@ -41,9 +42,11 @@ defmodule Ggenki.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
-    ]
-  end
+      {:plug_cowboy, "~> 2.0"},
+      {:httpoison, "~> 1.4"}, #
+      {:poison, "~> 3.1"}
+                              ]
+end
 
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, to create, migrate and run the seeds file at once:
