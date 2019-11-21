@@ -13,7 +13,7 @@ defmodule GgenkiWeb.BotController do
 
     # LINEメッセージの保存
 
-    Ggenki.Repo.insert(%Message{user: source["userId"],body: List.to_string(Poison.encode(events))})
+    Ggenki.Repo.insert(%Message{user: source["userId"],body: Poison.encode!(events)})
 
 
     json_data = %{
