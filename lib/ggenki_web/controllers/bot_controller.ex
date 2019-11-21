@@ -1,7 +1,7 @@
 defmodule GgenkiWeb.BotController do
   use GgenkiWeb, :controller
-  #alias GgenkiWeb.Message
-  #alias GgenkiWeb.Alert
+  alias Ggenki.Message
+  alias Ggenki.Alert
 
   def line_callback(conn, %{"events" => events}) do
     %{"message" => message } = List.first(events)
