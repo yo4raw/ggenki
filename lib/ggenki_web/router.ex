@@ -17,12 +17,8 @@ defmodule GgenkiWeb.Router do
 
   scope "/", GgenkiWeb do
     pipe_through :browser
-    post "/callback", BotController, :line_callback
-  end
-
-  scope "/", GgemkiWeb do
-    pipe_through [:browser, :csrf]
     get "/", PageController, :index
+    post "/callback", BotController, :line_callback
   end
 
   # Other scopes may use custom stacks.
