@@ -5,9 +5,9 @@ defmodule GgenkiWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
+
   pipeline :csrf do
     plug :protect_from_forgery
   end
@@ -17,8 +17,12 @@ defmodule GgenkiWeb.Router do
 
   scope "/", GgenkiWeb do
     pipe_through :browser
-    get "/", PageController, :index
     post "/callback", BotController, :line_callback
+  end
+
+  scope "/", GgemkiWeb do
+    pipe_through [:browser, :csrf]
+    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
