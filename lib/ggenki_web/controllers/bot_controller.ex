@@ -24,7 +24,7 @@ defmodule GgenkiWeb.BotController do
 
     case HTTPoison.post(endpoint_uri, json_data, headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.puts body
+        IO.inspect body
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         IO.puts "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
