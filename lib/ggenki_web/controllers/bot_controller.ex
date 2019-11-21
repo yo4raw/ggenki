@@ -19,7 +19,7 @@ defmodule GgenkiWeb.BotController do
 
     headers = %{
       "Content-Type" => "application/json",
-      "Authorization" => "Bearer ${" <> System.get_env("LINE_ACCESS_TOKEN") <> "}"   #メッセージ送受信設定|>アクセストークンからアクセストークンを取得
+      "Authorization" => "Bearer " <> System.get_env("LINE_ACCESS_TOKEN") #メッセージ送受信設定|>アクセストークンからアクセストークンを取得
     }
 
     case HTTPoison.post(endpoint_uri, json_data, headers) do
