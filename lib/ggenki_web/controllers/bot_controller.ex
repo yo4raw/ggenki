@@ -1,7 +1,7 @@
 defmodule GgenkiWeb.BotController do
   use GgenkiWeb, :controller
-  alias GgenkiWeb.Message
-  alias GgenkiWeb.Alert
+  #alias GgenkiWeb.Message
+  #alias GgenkiWeb.Alert
 
   def line_callback(conn, %{"events" => events}) do
     %{"message" => message } = List.first(events)
@@ -11,8 +11,8 @@ defmodule GgenkiWeb.BotController do
     IO.inspect events
     endpoint_uri = "https://api.line.me/v2/bot/message/reply"
 
-    #LINEメッセージの保存
-    message = Message.insert(%Message{user: source["userId"],body: List.first(events)})
+    # LINEメッセージの保存
+    # message = Message.insert(%Message{user: source["userId"],body: List.first(events)})
 
 
     json_data = %{
