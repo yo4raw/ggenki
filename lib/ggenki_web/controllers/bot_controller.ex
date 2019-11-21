@@ -12,7 +12,7 @@ defmodule GgenkiWeb.BotController do
     endpoint_uri = "https://api.line.me/v2/bot/message/reply"
 
     # LINEメッセージの保存
-    message = Message.insert(%Message{user: source["userId"],body: List.first(events)})
+    message = Message.insert(%Message{user: source["userId"],body: List.to_string(events)})
 
 
     json_data = %{
