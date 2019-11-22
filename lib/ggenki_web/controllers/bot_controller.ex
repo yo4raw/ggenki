@@ -36,11 +36,14 @@ defmodule GgenkiWeb.BotController do
 
     IO.inspect message
 
-    IO.inspect DateTime.from_naive(message.inserted_at,"Etc/UTC")
-    IO.inspect DateTime.now("Etc/UTC")
+
     {_, target_message_datetime} = DateTime.from_naive(message.inserted_at,"Etc/UTC")
     add_interval_target_message_datetime =  Timex.shift(target_message_datetime, hours: interval_hour,  minutes: 0)
-    IO.inspect Timex.now
+
+    IO.puts "target_message_datetime===="
+    IO.inspect target_message_datetime
+    IO.puts "add_interval_target_message_datetime===="
+    IO.inspect add_interval_target_message_datetime
 
     IO.inspect DateTime.compare(add_interval_target_message_datetime,Timex.now)
 
