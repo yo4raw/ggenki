@@ -51,6 +51,8 @@ defmodule GgenkiWeb.BotController do
     interval_hour = 1
     #確認をする対象LINEID
     line_id = System.get_env("TARGET_LINE_USER")
+    #監視対象のグループID
+    line_group_id = System.get_env("TARGET_LINE_GROUP")
 
     message = Message
       |> Repo.get_by(user: line_id)
@@ -62,7 +64,7 @@ defmodule GgenkiWeb.BotController do
     #最後の発言から特定の時間が経過していたら
     if message.inserted_at < Timex.shift(message.inserted_at, hour: interval_hour) do
       json_data = %{
-                    replyToken: events["replyToken"],
+                    groupId: line_group_id,
                     messages: [
                       %{
                         type: "text",
