@@ -1,4 +1,4 @@
-defmodule Ggenki.Repo.Migrations.Alert do
+defmodule Ggenki.Repo.Migrations.Alerts do
   use Ecto.Migration
 
   def change do
