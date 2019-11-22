@@ -36,7 +36,7 @@ defmodule GgenkiWeb.BotController do
 
     IO.inspect message
 
-
+    IO.inspect message.inserted_at
     IO.inspect Timex.shift(message.inserted_at |> DateTime.from_naive("Etc/UTC"), hours: interval_hour)
     IO.inspect Timex.now
 
