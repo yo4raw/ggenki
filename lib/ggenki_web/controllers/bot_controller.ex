@@ -37,11 +37,11 @@ defmodule GgenkiWeb.BotController do
     IO.inspect message
 
 
-    IO.inspect Timex.shift(message.inserted_at, hour: interval_hour)
+    IO.inspect Timex.shift(message.inserted_at, hours: interval_hour)
     IO.inspect Timex.now
 
     #最後の発言から特定の時間が経過していたら
-    if Timex.shift(message.inserted_at, hour: interval_hour) < Timex.now do
+    if Timex.shift(message.inserted_at, hours: interval_hour) < Timex.now do
       IO.puts "時間経過"
       alert_count= Alert
               |> Alert.get_by_message(message.id)
