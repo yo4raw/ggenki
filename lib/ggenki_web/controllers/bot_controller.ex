@@ -53,7 +53,7 @@ defmodule GgenkiWeb.BotController do
     line_id = System.get_env("TARGET_LINE_USER")
 
     message = Message
-      |> Repo.get_by(user: System.get_env("TARGET_LINE_USER"))
+      |> Repo.get_by(user: line_id)
       |> Ecto.Query.last
       |> Repo.one
 
