@@ -58,7 +58,7 @@ defmodule GgenkiWeb.BotController do
 
     message = Message
                 |> Message.latest_comment_by_user(line_id)
-                |> Repo.one
+                |> Ggenki.Repo.one
 
     IO.inspect message
 
