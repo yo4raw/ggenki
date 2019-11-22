@@ -13,4 +13,10 @@ defmodule Ggenki.Alert do
     |> cast(attrs, [])
     |> validate_required([])
   end
+
+  def get_by_message(alert, message_id) do
+    from(a in alert,
+      where: a.message_id == ^message_id,
+      limit: 1)
+  end
 end
