@@ -15,7 +15,6 @@ defmodule GgenkiWeb.BotController do
     endpoint_uri = "https://api.line.me/v2/bot/message/reply"
 
     # LINEメッセージの保存
-
     Ggenki.Repo.insert(%Message{user: source["userId"],body: Poison.encode!(events)})
 
 
@@ -65,28 +64,35 @@ defmodule GgenkiWeb.BotController do
     #最後の発言から特定の時間が経過していたら
     if Timex.shift(message.inserted_at, hour: interval_hour) < Timex.now do
       IO.puts "時間経過"
-      endpoint_uri = "https://api.line.me/v2/bot/message/push"
-      json_data = %{
-                    to: line_group_id,
-                    messages: [
-                      %{
-                        type: "text",
-                        text: "最後の発言から" <> Integer.to_string(interval_hour) <> "以上経過したよ"# 受信したメッセージをそのまま返す
-                      }
-                    ]
-                  } |> Poison.encode!
+      if Alert.get_by(message_id: message.id) != nil do
+        IO.puts "Alertにもない"
+        endpoint_uri = "https://api.line.me/v2/bot/message/push"
+        json_data = %{
+                      to: line_group_id,
+                      messages: [
+                        %{
+                          type: "text",
+                          text: "最後の発言から" <> Integer.to_string(interval_hour) <> "時間以上経過したよ"# 受信したメッセージをそのまま返す
+                        }
+                      ]
+                    } |> Poison.encode!
 
-      headers = %{
-        "Content-Type" => "application/json",
-        "Authorization" => "Bearer " <> System.get_env("LINE_ACCESS_TOKEN") #メッセージ送受信設定|>アクセストークンからアクセストークンを取得
-      }
-      case HTTPoison.post(endpoint_uri, json_data, headers) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          IO.puts body
-        {:ok, %HTTPoison.Response{status_code: 404}} ->
-          IO.puts "Not found :("
-        {:error, %HTTPoison.Error{reason: reason}} ->
-          IO.inspect reason
+        headers = %{
+          "Content-Type" => "application/json",
+          "Authorization" => "Bearer " <> System.get_env("LINE_ACCESS_TOKEN") #メッセージ送受信設定|>アクセストークンからアクセストークンを取得
+        }
+        case HTTPoison.post(endpoint_uri, json_data, headers) do
+          {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+            IO.puts body
+          {:ok, %HTTPoison.Response{status_code: 404}} ->
+            IO.puts "Not found :("
+          {:error, %HTTPoison.Error{reason: reason}} ->
+            IO.inspect reason
+        end
+
+        #alertsに該当のメッセージを格納
+        Ggenki.Repo.insert(%Alert{message_id: message.id})
+
       end
     end
     send_resp(conn, :no_content, "")
