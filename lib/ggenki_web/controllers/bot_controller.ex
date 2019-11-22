@@ -56,12 +56,10 @@ defmodule GgenkiWeb.BotController do
     #監視対象のグループID
     line_group_id = System.get_env("TARGET_LINE_GROUP")
 
-    message = Repo.all(
-                  from m in "messages",
-                  where: m.user == line_id,
-                  order_by: m.inserted_at,
-                  limit: 1
-                )
+    message = Message
+                |> Message.latest_comment_by_user(line_id)
+                |> Repo.one
+
     IO.inspect message
 
     #最後の発言から特定の時間が経過していたら
