@@ -57,7 +57,7 @@ defmodule GgenkiWeb.BotController do
     line_group_id = System.get_env("TARGET_LINE_GROUP")
 
     message = Repo.all(
-                  from m in Message,
+                  from m in "messages",
                   where: m.user == line_id,
                   order_by: m.inserted_at,
                   limit: 1
