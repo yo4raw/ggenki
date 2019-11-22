@@ -17,8 +17,8 @@ defmodule Ggenki.Message do
   end
 
   def latest_comment_by_user(message, user) do
-    from c in message,
-    where: c.user == ^user,
-    order_by: [desc: c.inserted_at]
+    from m in message,
+    where: m.user == user,
+    order_by: [desc: m.inserted_at]
   end
 end
