@@ -40,7 +40,7 @@ defmodule GgenkiWeb.BotController do
     IO.inspect Timex.shift(message.inserted_at |> DateTime.from_naive("Etc/UTC"), hours: interval_hour)
     IO.inspect Timex.now
 
-    IO.inspect DateTime.compare(Timex.shift(message.inserted_at |> DateTime.from_native("Etc/UTC")),Timex.now)
+    IO.inspect DateTime.compare(Timex.shift(message.inserted_at |> DateTime.from_naive("Etc/UTC")),Timex.now)
 
     #最後の発言から特定の時間が経過していたら
     if DateTime.compare(Timex.shift(message.inserted_at, hours: interval_hour),Timex.now) == :lt do
