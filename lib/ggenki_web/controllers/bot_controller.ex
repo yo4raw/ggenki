@@ -47,7 +47,7 @@ defmodule GgenkiWeb.BotController do
   end
 
 
-  def check(conn) do
+  def check(conn, _) do
 
     #最後の発言を確認する時間間隔
     interval_hour = 1
