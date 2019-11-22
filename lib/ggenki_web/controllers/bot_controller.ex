@@ -55,9 +55,9 @@ defmodule GgenkiWeb.BotController do
     line_group_id = System.get_env("TARGET_LINE_GROUP")
 
     message = Message
-      |> Repo.get_by(user: line_id)
+      |> Ggenki.Repo.get_by(user: line_id)
       |> Ecto.Query.last
-      |> Repo.one
+      |> Ggenki.Repo.one
 
     IO.inspect message
 
