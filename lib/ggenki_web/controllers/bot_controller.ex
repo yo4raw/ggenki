@@ -38,14 +38,14 @@ defmodule GgenkiWeb.BotController do
 
     IO.inspect DateTime.from_naive(message.inserted_at,"Etc/UTC")
     IO.inspect DateTime.now("Etc/UTC")
-{_,target_message_datetime} = DateTime.from_naive(message.inserted_at,"Etc/UTC")
-    IO.inspect Timex.shift(target_message_datetime, hours: interval_hour,  minutes: 0)
+    {_, target_message_datetime} = DateTime.from_naive(message.inserted_at,"Etc/UTC")
+    add_interval_target_message_datetime =  Timex.shift(target_message_datetime, hours: interval_hour,  minutes: 0)
     IO.inspect Timex.now
 
-    IO.inspect DateTime.compare(Timex.shift(message.inserted_at |> DateTime.from_naive("Etc/UTC"), hours: interval_hour),Timex.now)
+    IO.inspect DateTime.compare(add_interval_target_message_datetime,Timex.now)
 
     #最後の発言から特定の時間が経過していたら
-    if DateTime.compare(Timex.shift(message.inserted_at, hours: interval_hour),Timex.now) == :lt do
+    if DateTime.compare(add_interval_target_message_datetime,Timex.now) == :lt do
       IO.puts "時間経過"
       alert_count= Alert
               |> Alert.get_by_message(message.id)
