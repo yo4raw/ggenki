@@ -38,8 +38,8 @@ defmodule GgenkiWeb.BotController do
 
     IO.inspect DateTime.from_naive(message.inserted_at,"Etc/UTC")
     IO.inspect DateTime.now("Etc/UTC")
-    target_message_datetime = DateTime.from_naive(message.inserted_at,"Etc/UTC")
-    IO.inspect Timex.shift(target_message_datetime, hours: interval_hour)
+{_,target_message_datetime} = DateTime.from_naive(message.inserted_at,"Etc/UTC")
+    IO.inspect Timex.shift(target_message_datetime, hours: interval_hour,  minutes: 0)
     IO.inspect Timex.now
 
     IO.inspect DateTime.compare(Timex.shift(message.inserted_at |> DateTime.from_naive("Etc/UTC"), hours: interval_hour),Timex.now)
