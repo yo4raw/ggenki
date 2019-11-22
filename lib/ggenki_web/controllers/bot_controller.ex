@@ -39,6 +39,10 @@ defmodule GgenkiWeb.BotController do
     #最後の発言から特定の時間が経過していたら
     if Timex.shift(message.inserted_at, hour: interval_hour) < Timex.now do
       IO.puts "時間経過"
+
+      alert = Alert
+               |> Alert.get_by_message(message.id)
+      IO.inspect alert
       if Alert |> Alert.get_by_message(message.id) == nil do
         IO.puts "Alertにもない"
         endpoint_uri = "https://api.line.me/v2/bot/message/push"
