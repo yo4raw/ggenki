@@ -3,7 +3,7 @@ defmodule Ggenki.Alert do
   import Ecto.Changeset
 
   schema "alerts" do
-
+    field :message_id, :integer
     timestamps()
   end
 
