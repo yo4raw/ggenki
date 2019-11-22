@@ -67,7 +67,7 @@ defmodule GgenkiWeb.BotController do
       IO.puts "時間経過"
       endpoint_uri = "https://api.line.me/v2/bot/message/reply"
       json_data = %{
-                    groupId: line_group_id,
+                    to: line_group_id,
                     messages: [
                       %{
                         type: "text",
