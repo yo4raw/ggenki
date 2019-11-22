@@ -16,9 +16,9 @@ defmodule Ggenki.Message do
     |> validate_required([:user, :body])
   end
 
-  def latest_comment_by_user(query, user) do
-    from c in query,
-    where: c.user == user,
+  def latest_comment_by_user(message, user) do
+    from c in message,
+    where: c.user == ^user,
     order_by: [desc: c.inserted_at]
   end
 end
