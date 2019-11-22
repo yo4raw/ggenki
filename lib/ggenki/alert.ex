@@ -1,6 +1,7 @@
 defmodule Ggenki.Alert do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   schema "alerts" do
     field :message_id, :integer
