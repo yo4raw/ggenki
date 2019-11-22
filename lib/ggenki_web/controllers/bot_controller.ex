@@ -51,7 +51,7 @@ defmodule GgenkiWeb.BotController do
     interval_hour = 1
 
     message = Messages
-      |> last(:inserted_at)
+      |> last
       |> where(user: System.get_env("TARGET_LINE_USER"))
       |> Repo.one
 
