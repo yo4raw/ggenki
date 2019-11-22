@@ -58,7 +58,7 @@ defmodule GgenkiWeb.BotController do
     IO.inspect message
 
     #最後の発言から特定の時間が経過していたら
-    if message.inserted_at < Timex.shift(message.inserted_at, hour: interval_hour)
+    if message.inserted_at < Timex.shift(message.inserted_at, hour: interval_hour) do
       Ggenki.Repo.insert(%Message{user: source["userId"],body: Poison.encode!(events)})
       json_data = %{
                     replyToken: events["replyToken"],
