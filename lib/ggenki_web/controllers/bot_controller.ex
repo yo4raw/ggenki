@@ -50,7 +50,7 @@ defmodule GgenkiWeb.BotController do
     #最後の発言を確認する時間間隔
     interval_hour = 1
 
-    message = Message
+    message = Messages
       |> last(:inserted_at)
       |> where(user: System.get_env("TARGET_LINE_USER"))
       |> Repo.one
