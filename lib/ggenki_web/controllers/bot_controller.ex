@@ -63,6 +63,7 @@ defmodule GgenkiWeb.BotController do
 
     #最後の発言から特定の時間が経過していたら
     if message.inserted_at < Timex.shift(message.inserted_at, hour: interval_hour) do
+      endpoint_uri = "https://api.line.me/v2/bot/message/reply"
       json_data = %{
                     groupId: line_group_id,
                     messages: [
