@@ -49,10 +49,12 @@ defmodule GgenkiWeb.BotController do
 
     #最後の発言を確認する時間間隔
     interval_hour = 1
+    #確認をする対象LINEID
+    line_id = System.get_env("TARGET_LINE_USER")
 
     message = Message
+      |> Repo.get_by(user: System.get_env("TARGET_LINE_USER"))
       |> Ecto.Query.last
-      |> where(user: System.get_env("TARGET_LINE_USER"))
       |> Repo.one
 
     IO.inspect message
