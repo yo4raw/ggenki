@@ -56,7 +56,7 @@ defmodule GgenkiWeb.BotController do
 
     message = Message
       |> Ggenki.Repo.get_by(user: line_id)
-      |> Ecto.Query.last
+      |> Ggenki.Repo.last
       |> Ggenki.Repo.one
 
     IO.inspect message
