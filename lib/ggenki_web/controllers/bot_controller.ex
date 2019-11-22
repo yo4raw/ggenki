@@ -54,11 +54,12 @@ defmodule GgenkiWeb.BotController do
     #監視対象のグループID
     line_group_id = System.get_env("TARGET_LINE_GROUP")
 
-    message = Message
-      |> Ggenki.Repo.get_by(user: line_id)
-      |> Ecto.Query.last
-      |> Ggenki.Repo.one
-
+    message = Repo.all(
+                  from m in Message
+                  where: m.user == line_id,
+                  order_by: m.inserted_at,
+                  limit: 1
+                )
     IO.inspect message
 
     #最後の発言から特定の時間が経過していたら
