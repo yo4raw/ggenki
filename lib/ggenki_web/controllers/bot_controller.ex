@@ -43,7 +43,7 @@ defmodule GgenkiWeb.BotController do
     IO.inspect DateTime.compare(Timex.shift(message.inserted_at, hours: interval_hour),Timex.now)
 
     #最後の発言から特定の時間が経過していたら
-    if Timex.shift(message.inserted_at, hours: interval_hour) < Timex.now do
+    if DateTime.compare(Timex.shift(message.inserted_at, hours: interval_hour),Timex.now) == :lt do
       IO.puts "時間経過"
       alert_count= Alert
               |> Alert.get_by_message(message.id)
@@ -66,14 +66,14 @@ defmodule GgenkiWeb.BotController do
           "Content-Type" => "application/json",
           "Authorization" => "Bearer " <> System.get_env("LINE_ACCESS_TOKEN") #メッセージ送受信設定|>アクセストークンからアクセストークンを取得
         }
-        case HTTPoison.post(endpoint_uri, json_data, headers) do
-          {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-            IO.puts body
-          {:ok, %HTTPoison.Response{status_code: 404}} ->
-            IO.puts "Not found :("
-          {:error, %HTTPoison.Error{reason: reason}} ->
-            IO.inspect reason
-        end
+#        case HTTPoison.post(endpoint_uri, json_data, headers) do
+#          {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+#            IO.puts body
+#          {:ok, %HTTPoison.Response{status_code: 404}} ->
+#            IO.puts "Not found :("
+#          {:error, %HTTPoison.Error{reason: reason}} ->
+#            IO.inspect reason
+#        end
 
         #alertsに該当のメッセージを格納
         Ggenki.Repo.insert(%Alert{message_id: message.id})
