@@ -4,6 +4,8 @@ defmodule GgenkiWeb.BotController do
   alias Ggenki.Message
   alias Ggenki.Alert
 
+  import Ecto.Query, only: [from: 2]
+
   def line_callback(conn, %{"events" => events}) do
     %{"message" => message } = List.first(events)
     %{"source" => source } = List.first(events)
