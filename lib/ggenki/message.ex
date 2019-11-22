@@ -1,6 +1,7 @@
 defmodule Ggenki.Message do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   schema "messages" do
     field :body, :string
