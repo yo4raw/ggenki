@@ -24,7 +24,7 @@ defmodule GgenkiWeb.BotController do
   def check(conn, _) do
 
     #最後の発言を確認する時間間隔
-    interval_hour = 1
+    interval_hour = 24
     #確認をする対象LINEID
     line_id = System.get_env("TARGET_LINE_USER")
     #監視対象のグループID
@@ -62,7 +62,7 @@ defmodule GgenkiWeb.BotController do
                       messages: [
                         %{
                           type: "text",
-                          text: "最後の発言から" <> Integer.to_string(interval_hour) <> "時間以上経過したよ"# 受信したメッセージをそのまま返す
+                          text: "じーじの最後の発言から" <> Integer.to_string(interval_hour) <> "時間以上経過したよ！連絡ちょうだい！"# 受信したメッセージをそのまま返す
                         }
                       ]
                     } |> Poison.encode!
